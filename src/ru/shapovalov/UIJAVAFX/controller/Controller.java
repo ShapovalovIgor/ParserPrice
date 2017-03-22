@@ -27,9 +27,6 @@ public class Controller {
     private ObservableList<Goods> usersData = FXCollections.observableArrayList();
 
     @FXML
-    private GridPane gridPane;
-
-    @FXML
     private TableView<Goods> tableUsers;
 
     @FXML
@@ -81,7 +78,6 @@ public class Controller {
         tableUsers.setItems(usersData);
        // tableUsers.setRowFactory();
         count_goods.setText(String.valueOf(usersData.size()));
-        gridPane.setHgrow(tableUsers, Priority.ALWAYS);
     }
 
     // подготавливаем данные для таблицы
