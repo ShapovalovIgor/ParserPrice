@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ru.shapovalov.GetData.ParserStrings;
@@ -15,9 +14,10 @@ import java.awt.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static javafx.application.Application.launch;
 import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
+import static ru.shapovalov.SearchChange.SearchChange.newPrice;
 import static ru.shapovalov.UI.Window.APPLICATION_NAME;
+import static ru.shapovalov.UI.Window.alltableModel;
 import static ru.shapovalov.UI.Window.trayIcon;
 
 
@@ -29,9 +29,13 @@ public class Run extends Application {
     public static void main(String[] args) throws Exception {
         parserStrings = new ParserStrings();
         parserStrings.parserGoods();
+        SearchChange.searchDuplicateGame(firstGoods);
         window = new Window();
         window.start();
+        System.out.println("111");
         launch(args);//run javafx
+        System.out.println("111");
+
         startCollection = false;
         while (true) {
             TimeUnit.SECONDS.sleep(5);

@@ -5,6 +5,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.shapovalov.Constants;
 import ru.shapovalov.GetXML.GetData;
+import ru.shapovalov.SearchChange.SearchChange;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +19,7 @@ import java.util.Map;
 import static java.lang.Math.floor;
 import static ru.shapovalov.Run.startCollection;
 import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
+import static ru.shapovalov.SearchChange.SearchChange.newPrice;
 import static ru.shapovalov.SearchChange.SearchChange.secondGoods;
 import static ru.shapovalov.UI.AllTableModel.data;
 
@@ -103,24 +105,26 @@ public class ParserStrings {
         }
 
         System.out.println("First size" + firstGoods.size());
-
         if (startCollection) {
-            data = new Object[firstGoods.size()][9];
-            int i = 0;
-            for (Map.Entry<Integer, Goods> gFirst : firstGoods.entrySet()) {
-                data[i][0] = gFirst.getValue().getId_goods();
-                data[i][1] = gFirst.getValue().getName_goods();
-                data[i][2] = gFirst.getValue().getPriceOld();
-                data[i][3] = gFirst.getValue().getPriceNew();
-                data[i][4] = gFirst.getValue().getCnt_sell();
-                data[i][5] = gFirst.getValue().getCnt_return();
-                data[i][6] = gFirst.getValue().getCnt_goodresponses();
-                data[i][7] = gFirst.getValue().getCnt_badresponses();
-                data[i][8] = gFirst.getValue().getType();
-                i++;
-            }
-        }
+            newPrice(firstGoods);
+//            data = new Object[firstGoods.size()][9];
+//            int i = 0;
+//            for (Map.Entry<Integer, Goods> gFirst : firstGoods.entrySet()) {
+//                data[i][0] = gFirst.getValue().getId_goods();
+//                data[i][1] = gFirst.getValue().getName_goods();
+//                data[i][2] = gFirst.getValue().getPriceOld();
+//                data[i][3] = gFirst.getValue().getPriceNew();
+//                data[i][4] = gFirst.getValue().getCnt_sell();
+//                data[i][5] = gFirst.getValue().getCnt_return();
+//                data[i][6] = gFirst.getValue().getCnt_goodresponses();
+//                data[i][7] = gFirst.getValue().getCnt_badresponses();
+//                data[i][8] = gFirst.getValue().getType();
+//                i++;
+//            }
 
+        }else {
+            newPrice(secondGoods);
+        }
     }
 
     public Map<Integer, Integer> getSectionIdAndCountGoods(DocumentBuilder db, GetData getData, InputSource is) throws IOException, SAXException {

@@ -1,21 +1,10 @@
 package ru.shapovalov.UIJAVAFX.controller;
 
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import ru.shapovalov.GetData.Goods;
 
 import java.util.Map;
@@ -63,6 +52,7 @@ public class Controller {
     @FXML
     private void initialize() {
         initData();
+
         // устанавливаем тип и значение которое должно хранится в колонке
         id_goods.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("id_goods"));
         name_goods.setCellValueFactory(new PropertyValueFactory<Goods, String>("name_goods"));
@@ -76,7 +66,6 @@ public class Controller {
 
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
-       // tableUsers.setRowFactory();
         count_goods.setText(String.valueOf(usersData.size()));
     }
 

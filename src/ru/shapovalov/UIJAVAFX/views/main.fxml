@@ -4,27 +4,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1056.9998779296875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ru.shapovalov.UIJAVAFX.controller.Controller">
-  <children>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="1048.0"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="ru.shapovalov.UIJAVAFX.controller.Controller">
+    <children>
         <!-- Таблица в которую мы будем выводит наш pojo -->
-        <TableView fx:id="tableUsers" cache="true" cacheHint="DEFAULT">
-          <columns>
-            <!-- Колонки таблицы -->
-            <TableColumn prefWidth="100.0" text="ИД товара" fx:id="id_goods" />
-            <TableColumn prefWidth="260.0" text="Название товара" fx:id="name_goods" />
-            <TableColumn prefWidth="127.0" text="Старая цена руб" fx:id="priceOld" />
-            <TableColumn prefWidth="125.0" text="Новая цена руб" fx:id="priceNew" />
-            <TableColumn prefWidth="68.0" text="Продаж" fx:id="cnt_sell" />
-            <TableColumn prefWidth="130.0" text="Кол-о возвратов" fx:id="cnt_return" />
-            <TableColumn prefWidth="80.0" text="+ отзывов" fx:id="cnt_goodresponses" />
-            <TableColumn prefWidth="79.0" text="- отзывов" fx:id="cnt_badresponses" />
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="63.0" text="Тип" fx:id="type" />
-          </columns>
+        <TableView fx:id="tableUsers" layoutX="12.0" layoutY="62.0" prefHeight="324.0" prefWidth="1023.0">
+            <columns>
+                <!-- Колонки таблицы -->
+                <TableColumn prefWidth="100.0" text="ИД товара" fx:id="id_goods" />
+                <TableColumn prefWidth="260.0" text="Название товара" fx:id="name_goods" />
+                <TableColumn prefWidth="127.0" text="Старая цена руб" fx:id="priceOld" />
+                <TableColumn prefWidth="125.0" text="Новая цена руб" fx:id="priceNew" />
+                <TableColumn prefWidth="68.0" text="Продаж" fx:id="cnt_sell" />
+                <TableColumn prefWidth="130.0" text="Кол-о возвратов" fx:id="cnt_return" />
+                <TableColumn prefWidth="80.0" text="+ отзывов" fx:id="cnt_goodresponses" />
+                <TableColumn prefWidth="79.0" text="- отзывов" fx:id="cnt_badresponses" />
+                <TableColumn prefWidth="40.0" text="Тип" fx:id="type" />
+            </columns>
         </TableView>
-    <Label fx:id="count_goods" layoutX="14.0" layoutY="373.0" prefHeight="18.0" prefWidth="84.0" text="Count goods:">
-      <font>
-        <Font name="Verdana" size="12.0" />
-      </font>
-    </Label>
-  </children>
+        <Label layoutX="330.0" layoutY="18.0" text="Count goods:" fx:id="count_goods">
+            <font>
+                <Font name="Verdana" size="24.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>

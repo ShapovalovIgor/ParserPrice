@@ -48,15 +48,15 @@ public class SearchChange {
             }
         }
 
-        SearchChange.searchDuplicateGame();
-        newPrice();
+        SearchChange.searchDuplicateGame(secondGoods);
+        newPrice(secondGoods);
     }
 
-    public static void newPrice() {
+    public static void newPrice(Map<Integer, Goods> goodsMap) {
 
-        data = new Object[secondGoods.size()][9];
+        data = new Object[goodsMap.size()][9];
         int i = 0;
-        for (Map.Entry<Integer, Goods> gSecond : secondGoods.entrySet()) {
+        for (Map.Entry<Integer, Goods> gSecond : goodsMap.entrySet()) {
             data[i][0] = gSecond.getValue().getId_goods();
             data[i][1] = gSecond.getValue().getName_goods();
             data[i][2] = gSecond.getValue().getPriceOld();
@@ -68,20 +68,17 @@ public class SearchChange {
             data[i][8] = gSecond.getValue().getType();
             i++;
         }
-        alltableModel.fireTableDataChanged();
+//        alltableModel.fireTableDataChanged();
     }
 
-    public static void searchDuplicateGame() {
-        int minValueType = 1;
-        int type = 2;
-        int maxValueType = 3;
+    public static void searchDuplicateGame(Map<Integer, Goods> goodsMap) {
         List<Goods> fillTypeList = new ArrayList<Goods>();
 
 
-        for (Map.Entry<Integer, Goods> gSecondExternal : secondGoods.entrySet()) {
+        for (Map.Entry<Integer, Goods> gSecondExternal : goodsMap.entrySet()) {
             Goods secondValueExternal = gSecondExternal.getValue();
             String platiRuGameNameExternal = secondValueExternal.getName_goods();
-            for (Map.Entry<Integer, Goods> gSecond : secondGoods.entrySet()) {
+            for (Map.Entry<Integer, Goods> gSecond : goodsMap.entrySet()) {
                 {
                     Goods secondValue = gSecond.getValue();
                     String platiRuGameName = secondValue.getName_goods();
@@ -103,8 +100,8 @@ public class SearchChange {
                 int idGoodsMin = goodsMin.getId_goods();
 
 
-                secondGoods.put(idGoodsMax, goodsMax);
-                secondGoods.put(idGoodsMin, goodsMin);
+                goodsMap.put(idGoodsMax, goodsMax);
+                goodsMap.put(idGoodsMin, goodsMin);
                 System.out.println(fillTypeList);
                 System.out.println(idGoodsMax + "----" + idGoodsMin);
                 fillTypeList.remove((fillTypeList.size() -1));
@@ -112,7 +109,7 @@ public class SearchChange {
 
                 for (Goods goods : fillTypeList) {
                     goods.setType(2);
-                    secondGoods.put(goods.getId_goods(), goods);
+                    goodsMap.put(goods.getId_goods(), goods);
                 }
 
             } else if (fillTypeList.size() == 2) {
@@ -121,8 +118,8 @@ public class SearchChange {
                 goodsMax.setType(3);
                 Goods goodsMin = fillTypeList.get(0);
                 goodsMin.setType(1);
-                secondGoods.put(goodsMax.getId_goods(), goodsMax);
-                secondGoods.put(goodsMin.getId_goods(), goodsMin);
+                goodsMap.put(goodsMax.getId_goods(), goodsMax);
+                goodsMap.put(goodsMin.getId_goods(), goodsMin);
             }
             fillTypeList.clear();
         }
