@@ -108,7 +108,7 @@ public class Run extends Application {
                 ResourceBundle.getBundle("ru/shapovalov/UIJAVAFX/search_demo", locale));
         System.out.println("Locale set to:" + locale);
 
-        primaryStage.setTitle("Search Demo");
+        primaryStage.setTitle("Search  Demo");
         primaryStage.setWidth(650);
         primaryStage.setHeight(500);
 
