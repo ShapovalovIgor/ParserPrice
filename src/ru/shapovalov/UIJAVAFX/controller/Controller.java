@@ -9,7 +9,7 @@ import ru.shapovalov.GetData.Goods;
 
 import java.util.Map;
 
-import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
+import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
 
 public class Controller {
 
@@ -72,8 +72,8 @@ public class Controller {
     // подготавливаем данные для таблицы
     // вы можете получать их с базы данных
     private void initData() {
-        for (Map.Entry<Integer, Goods> gFirst : firstGoods.entrySet()) {
-            usersData.add(gFirst.getValue());
+        for (Map.Entry<Integer, Goods> good : goodsMap.entrySet()) {
+            usersData.add(good.getValue());
         }
 
         count_goods.getText();

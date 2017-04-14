@@ -1,11 +1,11 @@
 package ru.shapovalov.GetData;
 
+import org.w3c.dom.CharacterData;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.shapovalov.Constants;
 import ru.shapovalov.GetXML.GetData;
-import ru.shapovalov.SearchChange.SearchChange;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,15 +13,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static java.lang.Math.floor;
 import static ru.shapovalov.Run.startCollection;
-import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
-import static ru.shapovalov.SearchChange.SearchChange.newPrice;
-import static ru.shapovalov.SearchChange.SearchChange.secondGoods;
-import static ru.shapovalov.UI.AllTableModel.data;
+import static ru.shapovalov.SearchChange.SearchChange.oldIdList;
+import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
 
 
 public class ParserStrings {
@@ -85,14 +81,16 @@ public class ParserStrings {
                         int cntBadresponsesInt = Integer.parseInt(getCharacterDataFromElement(line));
 
                         if (startCollection) {
-                            firstGoods.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
+                            goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
                                     cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
+                            oldIdList.add(idGoodsInt);
                         } else {
-                            if (firstGoods.get(idGoodsInt) != null) {
-                                secondGoods.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, firstGoods.get(idGoodsInt).getPriceOld(), priceDoub,
+                            Goods goodsOld = goodsMap.get(idGoodsInt);
+                            if (goodsOld != null) {
+                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, goodsOld.getPriceOld(), priceDoub,
                                         cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             } else {
-                                secondGoods.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
+                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
                                         cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             }
 
@@ -102,28 +100,6 @@ public class ParserStrings {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        System.out.println("First size" + firstGoods.size());
-        if (startCollection) {
-            newPrice(firstGoods);
-//            data = new Object[firstGoods.size()][9];
-//            int i = 0;
-//            for (Map.Entry<Integer, Goods> gFirst : firstGoods.entrySet()) {
-//                data[i][0] = gFirst.getValue().getId_goods();
-//                data[i][1] = gFirst.getValue().getName_goods();
-//                data[i][2] = gFirst.getValue().getPriceOld();
-//                data[i][3] = gFirst.getValue().getPriceNew();
-//                data[i][4] = gFirst.getValue().getCnt_sell();
-//                data[i][5] = gFirst.getValue().getCnt_return();
-//                data[i][6] = gFirst.getValue().getCnt_goodresponses();
-//                data[i][7] = gFirst.getValue().getCnt_badresponses();
-//                data[i][8] = gFirst.getValue().getType();
-//                i++;
-//            }
-
-        }else {
-            newPrice(secondGoods);
         }
     }
 

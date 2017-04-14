@@ -2,14 +2,12 @@ package ru.shapovalov.UI;
 
 import ru.shapovalov.DB.DB;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
@@ -20,13 +18,13 @@ import static ru.shapovalov.SearchChange.SearchChange.searchPrice;
 import static ru.shapovalov.UI.AllTableModel.data;
 
 public class Window extends Thread {
-    public static final String curDir = System.getProperty("user.dir");
+    //    public static final String curDir = System.getProperty("user.dir");
     public static final String APPLICATION_NAME = "Parser price";
-    public static final String ICON_STR = curDir + "/image/ico.png";
-    public static final String ICON_REFRESH = curDir + "/image/refresh.png";
-    public static final String ICON_SAVE = curDir + "/image/save.png";
+    public static final String ICON_STR = "/image/ico.png";
+    public static final String ICON_REFRESH = "/image/refresh.png";
+    public static final String ICON_SAVE = "/image/save.png";
     public static TrayIcon trayIcon;
-    public static Image icon;
+    public static ImageIcon icon;
     public static AllTableModel alltableModel;
     public static boolean radioButton = false;
     public static TableWithURL t;
@@ -36,7 +34,7 @@ public class Window extends Thread {
     @Override
     public void run() {
         try {
-            icon = ImageIO.read(new File(ICON_STR));
+            icon = new ImageIcon(Window.class.getResource(ICON_STR));
             createGUI();
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +48,7 @@ public class Window extends Thread {
 
     private static void createGUI() throws IOException {
         frame = new JFrame(APPLICATION_NAME);
-        frame.setIconImage(icon);
+        frame.setIconImage(icon.getImage());
         createTable(frame);
         createButton(frame);
         JLabel numberOfLines = new JLabel("Записей " + data.length);
@@ -93,13 +91,15 @@ public class Window extends Thread {
                     searchPrice();
                 } catch (MalformedURLException e1) {
                     e1.printStackTrace();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
         trayMenu.add(itemExit);
         trayMenu.add(itemUpdate);
 
-        trayIcon = new TrayIcon(icon, APPLICATION_NAME, trayMenu);
+        trayIcon = new TrayIcon(icon.getImage(), APPLICATION_NAME, trayMenu);
         trayIcon.setImageAutoSize(true);
 
         SystemTray tray = SystemTray.getSystemTray();
@@ -131,15 +131,15 @@ public class Window extends Thread {
 
     public static void createButton(final JFrame frame) throws IOException {
         JPanel jPanel = new JPanel();
-        JButton save = new JButton("Сохранить в базу таблицу", new ImageIcon(ImageIO.read(new File(ICON_SAVE))));
+        JButton save = new JButton("Сохранить в базу таблицу", new ImageIcon(Window.class.getResource(ICON_SAVE)));
         save.setVerticalTextPosition(AbstractButton.CENTER);
         jPanel.add(save);
 
-        JButton get = new JButton("Выгрузить из базы таблицу", new ImageIcon(ImageIO.read(new File(ICON_REFRESH))));
+        JButton get = new JButton("Выгрузить из базы таблицу", new ImageIcon(Window.class.getResource(ICON_REFRESH)));
         get.setVerticalTextPosition(AbstractButton.CENTER);
         jPanel.add(get);
 
-        JButton ref = new JButton("Обновить принудительно", new ImageIcon(ImageIO.read(new File(ICON_REFRESH))));
+        JButton ref = new JButton("Обновить принудительно", new ImageIcon(Window.class.getResource(ICON_REFRESH)));
         ref.setVerticalTextPosition(AbstractButton.CENTER);
         jPanel.add(ref);
 
@@ -192,6 +192,8 @@ public class Window extends Thread {
                                 searchPrice();
                             } catch (MalformedURLException e1) {
                                 e1.printStackTrace();
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
                             }
                         }
                     }
@@ -199,6 +201,8 @@ public class Window extends Thread {
                     try {
                         searchPrice();
                     } catch (MalformedURLException e1) {
+                        e1.printStackTrace();
+                    } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -216,6 +220,8 @@ public class Window extends Thread {
                 try {
                     searchPrice();
                 } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
                 trayIcon.displayMessage(APPLICATION_NAME, "Данные в таблице обнавлены.", TrayIcon.MessageType.INFO);

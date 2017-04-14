@@ -26,9 +26,6 @@
             </columns>
         </TableView>
         <Label layoutX="330.0" layoutY="18.0" text="Count goods:" fx:id="count_goods">
-            <font>
-                <Font name="Verdana" size="24.0" />
-            </font>
         </Label>
     </children>
 </AnchorPane>

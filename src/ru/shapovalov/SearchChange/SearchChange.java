@@ -1,55 +1,55 @@
 package ru.shapovalov.SearchChange;
 
 import ru.shapovalov.GetData.Goods;
-import ru.shapovalov.UI.AllTableModel;
 
 import java.awt.*;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static ru.shapovalov.UI.AllTableModel.data;
-import static ru.shapovalov.UI.Window.*;
+import static ru.shapovalov.UI.Window.APPLICATION_NAME;
+import static ru.shapovalov.UI.Window.trayIcon;
 
 public class SearchChange {
-    public static Map<Integer, Goods> firstGoods = new HashMap<>();
-    public static Map<Integer, Goods> secondGoods = new HashMap<>();
+    public static List<Integer> oldIdList = new ArrayList<>();
+    public static Map<Integer, Goods> goodsMap = new HashMap<>();
 
-    public static void searchPrice() throws MalformedURLException {
-        if (!firstGoods.containsValue(secondGoods)) {
-            for (Map.Entry<Integer, Goods> gFirst : firstGoods.entrySet()) {
-                Goods firstValue = gFirst.getValue();
-                for (Map.Entry<Integer, Goods> gSecond : secondGoods.entrySet()) {
-                    Goods secondValue = gSecond.getValue();
-                    if (firstValue.getId_goods() == secondValue.getId_goods()) {
+    public static void searchPrice() throws MalformedURLException, InterruptedException {
+        for (Map.Entry<Integer, Goods> good : goodsMap.entrySet()) {
+            Goods goodValue = good.getValue();
+            Integer key = good.getKey();
+            if (oldIdList.contains(key)) {
 
-                        if (Double.valueOf(firstValue.getPriceOld()) == null) {
-                            trayIcon.displayMessage(APPLICATION_NAME, "Добавлена новая позиция " + secondValue.getPriceOld() +
-                                    "руб ID=" + secondValue.getId_goods() + secondValue.getName_goods() + " http://plati.ru/itm//" + firstValue.getId_goods(), TrayIcon.MessageType.INFO);
-                            secondValue.setType(3);
-                            secondGoods.put(gSecond.getKey(), secondValue);
-                            System.out.println("Добавлена новая позиция " + secondValue.getPriceOld());
-                        } else if ((firstValue.getPriceOld() > secondValue.getPriceNew())) {
-                            trayIcon.displayMessage(APPLICATION_NAME, "Цена снижена с " + firstValue.getPriceOld() + "руб до " + secondValue.getPriceNew() +
-                                    " ID=" + secondValue.getId_goods() + secondValue.getName_goods() + " http://plati.ru/itm//" + firstValue.getId_goods(), TrayIcon.MessageType.INFO);
-                            secondValue.setType(1);
-                            secondGoods.put(gSecond.getKey(), secondValue);
-                            System.out.println("Цена снижена с " + firstValue.getPriceOld() + "руб до " + secondValue.getPriceNew());
-                        } else if ((firstValue.getPriceOld() < secondValue.getPriceNew())) {
-                            trayIcon.displayMessage(APPLICATION_NAME, "Цена повышена с " + firstValue.getPriceOld() + "руб до " + secondValue.getPriceNew() +
-                                    " ID=" + secondValue.getId_goods() + secondValue.getName_goods() + " http://plati.ru/itm//" + firstValue.getId_goods(), TrayIcon.MessageType.INFO);
-                            secondValue.setType(2);
-                            secondGoods.put(gSecond.getKey(), secondValue);
-                            System.out.println("Цена повышена с " + firstValue.getPriceOld() + "руб до " + secondValue.getPriceNew());
-                        }
-                    }
+                if ((goodValue.getPriceOld() > goodValue.getPriceNew())) {
+                    trayIcon.displayMessage(APPLICATION_NAME, "Цена снижена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew() +
+                            " ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
+                    goodValue.setType(1);
+                    goodsMap.put(key, goodValue);
+                    System.out.println("Цена снижена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew());
+                } else if ((goodValue.getPriceOld() < goodValue.getPriceNew())) {
+                    trayIcon.displayMessage(APPLICATION_NAME, "Цена повышена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew() +
+                            " ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
+                    goodValue.setType(2);
+                    goodsMap.put(key, goodValue);
+                    System.out.println("Цена повышена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew());
                 }
+            } else {
+
+                trayIcon.displayMessage(APPLICATION_NAME, "Добавлена новая позиция " + goodValue.getPriceOld() +
+                        "руб ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
+                goodValue.setType(3);
+                goodsMap.put(key, goodValue);
+                System.out.println("Добавлена новая позиция " + goodValue.getPriceOld());
+                oldIdList.add(key);
+                TimeUnit.SECONDS.sleep(3);
             }
+
         }
 
-        SearchChange.searchDuplicateGame(secondGoods);
-        newPrice(secondGoods);
+        SearchChange.searchDuplicateGame(goodsMap);
+        newPrice(goodsMap);
     }
 
     public static void newPrice(Map<Integer, Goods> goodsMap) {
@@ -92,7 +92,7 @@ public class SearchChange {
 
             if (fillTypeList.size() >= 3) {
                 sort(fillTypeList);
-                Goods goodsMax = fillTypeList.get((fillTypeList.size() -1));
+                Goods goodsMax = fillTypeList.get((fillTypeList.size() - 1));
                 goodsMax.setType(3);
                 Goods goodsMin = fillTypeList.get(0);
                 goodsMin.setType(1);
@@ -104,7 +104,7 @@ public class SearchChange {
                 goodsMap.put(idGoodsMin, goodsMin);
                 System.out.println(fillTypeList);
                 System.out.println(idGoodsMax + "----" + idGoodsMin);
-                fillTypeList.remove((fillTypeList.size() -1));
+                fillTypeList.remove((fillTypeList.size() - 1));
                 fillTypeList.remove(0);
 
                 for (Goods goods : fillTypeList) {
@@ -114,7 +114,7 @@ public class SearchChange {
 
             } else if (fillTypeList.size() == 2) {
                 sort(fillTypeList);
-                Goods goodsMax = fillTypeList.get((fillTypeList.size() -1));
+                Goods goodsMax = fillTypeList.get((fillTypeList.size() - 1));
                 goodsMax.setType(3);
                 Goods goodsMin = fillTypeList.get(0);
                 goodsMin.setType(1);

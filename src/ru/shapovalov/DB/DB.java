@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
+
+import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
 import static ru.shapovalov.UI.AllTableModel.data;
 
 
@@ -24,11 +25,6 @@ public class DB {
                                         "name_goods text," +
                                         "price_old real," +
                                         "price_new real," +
-                                        "discount text," +
-                                        "gift text," +
-                                        "id_seller integer," +
-                                        "name_seller text," +
-                                        "rating text," +
                                         "cnt_sell integer," +
                                         "cnt_return integer," +
                                         "cnt_goodresponses integer," +
@@ -55,11 +51,10 @@ public class DB {
     {
         for (int i = 0; i<data.length;i++) {
             statmt.execute("INSERT INTO goods ('id_goods', 'name_goods', 'price_old', 'price_new'," +
-                    "'discount', 'gift', 'id_seller', 'name_seller', 'rating', 'cnt_sell', " +
-                    "'cnt_return', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
+                    "'cnt_sell', 'cnt_return', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
                     "VALUES ('" + data[i][0] + "', '" + data[i][1] + "', '" + data[i][2] + "', '" + data[i][3] + "', " +
                     "'" + data[i][4] + "', '" + data[i][5] + "', '" + data[i][6] + "', '" + data[i][7] + "', " +
-                    "'" + data[i][8] + "', '" + data[i][9] + "', '" + data[i][10] + "', '" + data[i][11] + "', '" + data[i][12] + "', '" + data[i][13] + "');");
+                    "'" + data[i][8] + "');");
         }
 
         System.out.println("База заполнена");
@@ -83,11 +78,6 @@ public class DB {
             String nameGoods = resSet.getString("name_goods");
             double priceOld = resSet.getDouble("price_old");
             double priceNew = resSet.getDouble("price_new");
-            String discount = resSet.getString("discount");
-            String gift = resSet.getString("gift");
-            int idSeller =  resSet.getInt("id_seller");
-            String nameSeller = resSet.getString("name_seller");
-            String rating = resSet.getString("rating");
             int cntSell = resSet.getInt("cnt_sell");
             int cntReturn = resSet.getInt("cnt_return");
             int cntGoodresponses = resSet.getInt("cnt_goodresponses");
@@ -104,8 +94,8 @@ public class DB {
             data[i][6] = cntGoodresponses;
             data[i][7] = cntBadresponses;
             data[i][8] = type;
-            firstGoods.clear();
-            firstGoods.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew,
+            goodsMap.clear();
+            goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew,
                     cntSell, cntReturn, cntGoodresponses, cntBadresponses, type));
             i++;
         }

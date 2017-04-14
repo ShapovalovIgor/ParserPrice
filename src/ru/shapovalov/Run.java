@@ -14,10 +14,10 @@ import java.awt.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static ru.shapovalov.SearchChange.SearchChange.firstGoods;
 import static ru.shapovalov.SearchChange.SearchChange.newPrice;
+import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
 import static ru.shapovalov.UI.Window.APPLICATION_NAME;
-import static ru.shapovalov.UI.Window.alltableModel;
+import static ru.shapovalov.UI.Window.ICON_STR;
 import static ru.shapovalov.UI.Window.trayIcon;
 
 
@@ -29,7 +29,10 @@ public class Run extends Application {
     public static void main(String[] args) throws Exception {
         parserStrings = new ParserStrings();
         parserStrings.parserGoods();
-        SearchChange.searchDuplicateGame(firstGoods);
+        SearchChange.searchDuplicateGame(goodsMap);
+
+        newPrice(goodsMap);
+
         window = new Window();
         window.start();
         System.out.println("111");
@@ -39,9 +42,9 @@ public class Run extends Application {
         startCollection = false;
         while (true) {
             TimeUnit.SECONDS.sleep(5);
-            trayIcon.displayMessage(APPLICATION_NAME, "Получено " + firstGoods.size() + " позиций.",
+            trayIcon.displayMessage(APPLICATION_NAME, "Получено " + goodsMap.size() + " позиций.",
                     TrayIcon.MessageType.INFO);
-            TimeUnit.MINUTES.sleep(5);
+            TimeUnit.MINUTES.sleep(0);
             parserStrings.parserGoods();
             SearchChange.searchPrice();
         }
@@ -51,9 +54,8 @@ public class Run extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("UIJAVAFX/views/main.fxml"));
         primaryStage.setTitle("Parser price");
-        primaryStage.getIcons().add(new Image(getResource("/image/ico.png").toExternalForm()));
+        primaryStage.getIcons().add(new Image(getResource(ICON_STR).toExternalForm()));
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(true);
         primaryStage.show();
     }
 
