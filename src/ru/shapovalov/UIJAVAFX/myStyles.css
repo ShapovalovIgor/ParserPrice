@@ -1,0 +1,21 @@
+/*
+ * myStyles.css - style sheet for updated SearchDemo.java JavaFX FXML example
+ */
+
+#app-border {
+  -fx-border-color: grey;
+  -fx-border-width: 3;
+}
+
+#footer {
+  -fx-border-color: grey;
+  -fx-border-width: 1;
+  -fx-padding: 5;
+}
+
+#app-title {
+  -fx-font-size: 20pt;
+  -fx-font-weight: normal;
+  -fx-text-fill: grey;
+  -fx-padding: 15 0 0 0;
+}

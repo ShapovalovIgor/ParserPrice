@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sqlite-jdbc-3.7.2" level="project" />
     <orderEntry type="library" exported="" name="json-20160810" level="project" />
+    <orderEntry type="library" exported="" name="restfx-1.0" level="project" />
+    <orderEntry type="library" exported="" name="restfx-server-1.0" level="project" />
   </component>
 </module>

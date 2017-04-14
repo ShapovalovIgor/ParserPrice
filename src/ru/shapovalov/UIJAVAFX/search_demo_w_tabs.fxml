@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 Oracle and/or its affiliates. All rights reserved.
+-->
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import ru.shapovalov.UIJAVAFX.*?>
+
+<BorderPane id="app-border" fx:controller="ru.shapovalov.UIJAVAFX.SearchDemoController"
+  xmlns:fx="http://javafx.com/fxml">
+  <top>
+    <HBox>
+      <children>
+        <ImageView>
+           <image>
+                <Image url="@javafx-logo.png"/>
+           </image>
+        </ImageView>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label id="app-title" text="%appTitle"/>
+        <Region>
+          <HBox.hgrow>ALWAYS</HBox.hgrow>
+        </Region>
+        <HBox>
+          <children>
+            <HBox spacing="5" fillHeight="false">
+              <HBox.margin>
+                <Insets top="20" right="10"/>
+              </HBox.margin>
+              <children>
+                <TextField fx:id="searchTermTextField" prefColumnCount="11"
+                    promptText="%titleOrArtist" 
+                    onAction="#handleSearchAction"/>
+                <Button fx:id="searchButton" disable="false" 
+                    onAction="#handleSearchAction"/>
+              </children>
+            </HBox>
+            <Label fx:id="statusLabel"/>
+          </children>
+        </HBox>
+      </children>
+    </HBox>
+  </top>
+
+  <center>
+    <TabPane>
+      <tabs>
+        <Tab text="%search" closable="false">
+          <content>
+            <TableView fx:id="resultsTableView">
+              <fx:define>
+                 <ResultCellValueFactory fx:id="resultCellValueFactory"/>
+              </fx:define>
+                <columns>
+                  <ResultTableColumn key="itemName" text="%name" 
+                      prefWidth="220" 
+                      cellValueFactory="$resultCellValueFactory"/>
+                  <ResultTableColumn key="itemParentName" text="%album" 
+                      prefWidth="220" 
+                      cellValueFactory="$resultCellValueFactory"/>
+                  <ResultTableColumn key="artistName" text="%artist" 
+                      prefWidth="220" 
+                      cellValueFactory="$resultCellValueFactory"/>
+                </columns>
+            </TableView>
+          </content>
+        </Tab>
+        <Tab text="%detail" closable="false">
+          <content>
+            <VBox fillWidth="false" alignment="topCenter" spacing="6" 
+                style="-fx-padding: 10 0 0 0">
+              <children>
+                <StackPane prefWidth="120" prefHeight="120" 
+                    style="-fx-border-color: #929292; -fx-border-width: 1px">
+                  <children>
+                      <ImageView fx:id="artworkImageView"/>
+                  </children>
+                </StackPane>
+                <Button fx:id="previewButton" text="%preview" 
+                    onAction="#handlePreviewAction"/>
+              </children>
+            </VBox>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </center>
+  <bottom>
+    <HBox id="footer">
+      <children>
+        <Label fx:id="statusLabel"/>  
+      </children> 
+    </HBox>  
+  </bottom>
+</BorderPane>
