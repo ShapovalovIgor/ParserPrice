@@ -57,7 +57,7 @@ public class ParserStrings {
 
                         NodeList name_goods = element.getElementsByTagName("name_goods");
                         line = (Element) name_goods.item(0);
-                        String[] nameGoodsStrArray = getCharacterDataFromElement(line).replace("&amp;", "").replace("quot;", "").split("[(,+,/,|,-]");
+                        String[] nameGoodsStrArray = getCharacterDataFromElement(line).replace("&amp;", "").replace("– ","").replace("–"," ").replace("quot;", "").split("[(,+,/,|,-]");
                         String nameGoodsStr = nameGoodsStrArray[0];
 
                         NodeList price = element.getElementsByTagName("price");

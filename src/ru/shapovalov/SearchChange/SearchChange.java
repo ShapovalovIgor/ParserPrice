@@ -121,10 +121,9 @@ public class SearchChange {
 
     public static void sort(List<Goods> values) {
         Collections.sort(values, new Comparator<Goods>() {
-            public int compare(Goods o1, Goods o2) {
-                Double o1Val = new Double(o1.getCnt_goodresponses());
-                Double o2Val = new Double(o2.getCnt_goodresponses());
-                return o1Val.compareTo(o2Val);
+            @Override
+            public int compare(Goods c1, Goods c2) {
+                return Double.compare(c1.getPriceNew(), c2.getPriceNew());
             }
         });
     }

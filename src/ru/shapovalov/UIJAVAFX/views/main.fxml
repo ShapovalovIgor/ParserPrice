@@ -25,17 +25,9 @@
         </TableView>
         <Label fx:id="count_goods" layoutX="14.0" layoutY="397.0" text="Count goods: 0">
         </Label>
-      <Button layoutX="322.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Сохранить в БД таблицу" />
-      <Button layoutX="524.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Выгрузить из БД таблицу" />
-      <Button layoutX="728.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Принудительно обновить">
-         <effect>
-            <ColorAdjust />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Button>
-      <MenuBar layoutY="2.0">
+      <Button layoutX="513.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Сохранить в БД таблицу" />
+      <Button layoutX="708.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Выгрузить из БД таблицу" />
+      <MenuBar layoutY="0" prefHeight="17.0" prefWidth="128.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
