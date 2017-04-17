@@ -34,9 +34,6 @@ public class Controller {
     private TableColumn<Goods, Integer> cnt_sell;
 
     @FXML
-    private TableColumn<Goods, Integer> cnt_return;
-
-    @FXML
     private TableColumn<Goods, Integer> cnt_goodresponses;
 
     @FXML
@@ -59,7 +56,6 @@ public class Controller {
         priceOld.setCellValueFactory(new PropertyValueFactory<Goods, Double>("priceOld"));
         priceNew.setCellValueFactory(new PropertyValueFactory<Goods, Double>("priceNew"));
         cnt_sell.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("cnt_sell"));
-        cnt_return.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("cnt_return"));
         cnt_goodresponses.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("cnt_goodresponses"));
         cnt_badresponses.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("cnt_badresponses"));
         type.setCellValueFactory(new PropertyValueFactory<Goods, Integer>("type"));

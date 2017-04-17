@@ -1,31 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="1048.0"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="ru.shapovalov.UIJAVAFX.controller.Controller">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.shapovalov.UIJAVAFX.controller.Controller">
     <children>
         <!-- Таблица в которую мы будем выводит наш pojo -->
-        <TableView fx:id="tableUsers" layoutX="12.0" layoutY="62.0" prefHeight="324.0" prefWidth="1023.0">
+        <TableView fx:id="tableUsers" layoutX="14.0" layoutY="73.0" prefHeight="324.0" prefWidth="880.0">
             <columns>
                 <!-- Колонки таблицы -->
-                <TableColumn prefWidth="100.0" text="ИД товара" fx:id="id_goods" />
-                <TableColumn prefWidth="260.0" text="Название товара" fx:id="name_goods" />
-                <TableColumn prefWidth="127.0" text="Старая цена руб" fx:id="priceOld" />
-                <TableColumn prefWidth="125.0" text="Новая цена руб" fx:id="priceNew" />
-                <TableColumn prefWidth="68.0" text="Продаж" fx:id="cnt_sell" />
-                <TableColumn prefWidth="130.0" text="Кол-о возвратов" fx:id="cnt_return" />
-                <TableColumn prefWidth="80.0" text="+ отзывов" fx:id="cnt_goodresponses" />
-                <TableColumn prefWidth="79.0" text="- отзывов" fx:id="cnt_badresponses" />
-                <TableColumn prefWidth="40.0" text="Тип" fx:id="type" />
+                <TableColumn fx:id="id_goods" prefWidth="100.0" text="ИД товара" />
+                <TableColumn fx:id="name_goods" prefWidth="260.0" text="Название товара" />
+                <TableColumn fx:id="priceOld" prefWidth="127.0" text="Старая цена руб" />
+                <TableColumn fx:id="priceNew" prefWidth="125.0" text="Новая цена руб" />
+                <TableColumn fx:id="cnt_sell" prefWidth="68.0" text="Продаж" />
+                <TableColumn fx:id="cnt_goodresponses" prefWidth="80.0" text="+ отзывов" />
+                <TableColumn fx:id="cnt_badresponses" prefWidth="79.0" text="- отзывов" />
+                <TableColumn fx:id="type" prefWidth="40.0" text="Тип" />
             </columns>
         </TableView>
-        <Label layoutX="330.0" layoutY="18.0" text="Count goods:" fx:id="count_goods">
+        <Label fx:id="count_goods" layoutX="14.0" layoutY="397.0" text="Count goods: 0">
         </Label>
+      <Button layoutX="322.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Сохранить в БД таблицу" />
+      <Button layoutX="524.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="186.0" text="Выгрузить из БД таблицу" />
+      <Button layoutX="728.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Принудительно обновить">
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextField layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="152.0" />
+      <Button layoutX="166.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Поиск" />
     </children>
 </AnchorPane>

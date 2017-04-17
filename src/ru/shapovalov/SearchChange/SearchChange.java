@@ -6,7 +6,6 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static ru.shapovalov.UI.AllTableModel.data;
 import static ru.shapovalov.UI.Window.*;
@@ -24,25 +23,20 @@ public class SearchChange {
                 if ((goodValue.getPriceOld() > goodValue.getPriceNew())) {
                     trayIcon.displayMessage(APPLICATION_NAME, "Цена снижена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew() +
                             " ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
-                    goodValue.setType(1);
-                    goodsMap.put(key, goodValue);
                     System.out.println("Цена снижена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew());
                 } else if ((goodValue.getPriceOld() < goodValue.getPriceNew())) {
                     trayIcon.displayMessage(APPLICATION_NAME, "Цена повышена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew() +
                             " ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
-                    goodValue.setType(2);
-                    goodsMap.put(key, goodValue);
                     System.out.println("Цена повышена с " + goodValue.getPriceOld() + "руб до " + goodValue.getPriceNew());
                 }
             } else {
-
-                trayIcon.displayMessage(APPLICATION_NAME, "Добавлена новая позиция " + goodValue.getPriceOld() +
-                        "руб ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
-                goodValue.setType(3);
+//                trayIcon.displayMessage(APPLICATION_NAME, "Добавлена новая позиция " + goodValue.getPriceOld() +
+//                        "руб ID=" + goodValue.getId_goods() + goodValue.getName_goods() + " http://plati.ru/itm//" + goodValue.getId_goods(), TrayIcon.MessageType.INFO);
+                goodValue.setType(4);
                 goodsMap.put(key, goodValue);
                 System.out.println("Добавлена новая позиция " + goodValue.getPriceOld());
                 oldIdList.add(key);
-                TimeUnit.SECONDS.sleep(1);
+//                TimeUnit.SECONDS.sleep(1);
                 numberOfLines.setText("Записей " + goodsMap.size());
             }
 
@@ -64,10 +58,9 @@ public class SearchChange {
             data[i][2] = gSecond.getValue().getPriceOld();
             data[i][3] = gSecond.getValue().getPriceNew();
             data[i][4] = gSecond.getValue().getCnt_sell();
-            data[i][5] = gSecond.getValue().getCnt_return();
-            data[i][6] = gSecond.getValue().getCnt_goodresponses();
-            data[i][7] = gSecond.getValue().getCnt_badresponses();
-            data[i][8] = gSecond.getValue().getType();
+            data[i][5] = gSecond.getValue().getCnt_goodresponses();
+            data[i][6] = gSecond.getValue().getCnt_badresponses();
+            data[i][7] = gSecond.getValue().getType();
             i++;
         }
     }

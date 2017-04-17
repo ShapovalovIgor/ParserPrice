@@ -26,7 +26,6 @@ public class DB {
                                         "price_old real," +
                                         "price_new real," +
                                         "cnt_sell integer," +
-                                        "cnt_return integer," +
                                         "cnt_goodresponses integer," +
                                         "cnt_badresponses integer," +
                                         "type integer)";
@@ -51,10 +50,10 @@ public class DB {
     {
         for (int i = 0; i<data.length;i++) {
             statmt.execute("INSERT INTO goods ('id_goods', 'name_goods', 'price_old', 'price_new'," +
-                    "'cnt_sell', 'cnt_return', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
+                    "'cnt_sell', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
                     "VALUES ('" + data[i][0] + "', '" + data[i][1] + "', '" + data[i][2] + "', '" + data[i][3] + "', " +
                     "'" + data[i][4] + "', '" + data[i][5] + "', '" + data[i][6] + "', '" + data[i][7] + "', " +
-                    "'" + data[i][8] + "');");
+                    "'');");
         }
 
         System.out.println("База заполнена");
@@ -79,7 +78,6 @@ public class DB {
             double priceOld = resSet.getDouble("price_old");
             double priceNew = resSet.getDouble("price_new");
             int cntSell = resSet.getInt("cnt_sell");
-            int cntReturn = resSet.getInt("cnt_return");
             int cntGoodresponses = resSet.getInt("cnt_goodresponses");
             int cntBadresponses = resSet.getInt("cnt_badresponses");
             int type = resSet.getInt("type");
@@ -90,13 +88,12 @@ public class DB {
             data[i][2] = priceOld;
             data[i][3] = priceNew;
             data[i][4] = cntSell;
-            data[i][5] = cntReturn;
-            data[i][6] = cntGoodresponses;
-            data[i][7] = cntBadresponses;
-            data[i][8] = type;
+            data[i][5] = cntGoodresponses;
+            data[i][6] = cntBadresponses;
+            data[i][7] = type;
             goodsMap.clear();
             goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew,
-                    cntSell, cntReturn, cntGoodresponses, cntBadresponses, type));
+                    cntSell, cntGoodresponses, cntBadresponses, type));
             i++;
         }
         resSet.close();

@@ -68,10 +68,6 @@ public class ParserStrings {
                         line = (Element) cnt_sell.item(0);
                         int cntSellInt = Integer.parseInt(getCharacterDataFromElement(line));
 
-                        NodeList cnt_return = element.getElementsByTagName("cnt_return");
-                        line = (Element) cnt_return.item(0);
-                        int cntReturnInt = Integer.parseInt(getCharacterDataFromElement(line));
-
                         NodeList cnt_goodresponses = element.getElementsByTagName("cnt_goodresponses");
                         line = (Element) cnt_goodresponses.item(0);
                         int cntGoodresponsesInt = Integer.parseInt(getCharacterDataFromElement(line));
@@ -82,16 +78,16 @@ public class ParserStrings {
 
                         if (startCollection) {
                             goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
-                                    cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
+                                    cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             oldIdList.add(idGoodsInt);
                         } else {
                             Goods goodsOld = goodsMap.get(idGoodsInt);
                             if (goodsOld != null) {
                                 goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, goodsOld.getPriceOld(), priceDoub,
-                                        cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
+                                        cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             } else {
                                 goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub,
-                                        cntSellInt, cntReturnInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
+                                        cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             }
 
                         }

@@ -29,14 +29,17 @@ public class SetColorTable extends DefaultTableCellRenderer {
             setBackground(Color.RED);
             setForeground(Color.WHITE);
         }
-        if (!(column == 2 || column == 3) && 1 == (int) table.getValueAt(row, 8) && column == 1) {
+        if (1 == (int) table.getValueAt(row, 7) && column == 1) {
             setBackground(Color.BLUE);
             setForeground(Color.WHITE);
-        } else if (!(column == 2 || column == 3) && 2 == (int) table.getValueAt(row, 8) && column == 1) {
+        } else if (2 == (int) table.getValueAt(row, 7) && column == 1) {
             setBackground(Color.YELLOW);
             setForeground(Color.BLACK);
-        } else if (!(column == 2 || column == 3) && 3 == (int) table.getValueAt(row, 8) && column == 1) {
+        } else if (3 == (int) table.getValueAt(row, 7) && column == 1) {
             setBackground(Color.ORANGE);
+            setForeground(Color.BLACK);
+        } else if (4 == (int) table.getValueAt(row, 7) && column == 1) {
+            setBackground(Color.GREEN);
             setForeground(Color.BLACK);
         }
 

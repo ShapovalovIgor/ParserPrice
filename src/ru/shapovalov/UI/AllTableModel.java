@@ -11,7 +11,7 @@ public class AllTableModel extends AbstractTableModel {
     public AllTableModel() {
 
         columnNames = new String[]{"ИД товара", "Название", "Старая цена руб", "Новая цена руб",
-                "Продаж", "Кол-о возвратов", "+ отзывов", "- отзывов", "Тип"};
+                "Продаж", "+ отзывов", "- отзывов", "Тип"};
     }
 
     public int getColumnCount() {

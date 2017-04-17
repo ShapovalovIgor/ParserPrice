@@ -35,9 +35,9 @@ public class Run extends Application {
 
         window = new Window();
         window.start();
-        System.out.println("111");
-//        launch(args);//run javafx
-        System.out.println("111");
+
+        //        launch(args);//run javafx
+
 
         startCollection = false;
         while (true) {
