@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static ru.shapovalov.UI.AllTableModel.data;
-import static ru.shapovalov.UI.Window.APPLICATION_NAME;
-import static ru.shapovalov.UI.Window.trayIcon;
+import static ru.shapovalov.UI.Window.*;
 
 public class SearchChange {
     public static List<Integer> oldIdList = new ArrayList<>();
@@ -43,13 +42,16 @@ public class SearchChange {
                 goodsMap.put(key, goodValue);
                 System.out.println("Добавлена новая позиция " + goodValue.getPriceOld());
                 oldIdList.add(key);
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(1);
+                numberOfLines.setText("Записей " + goodsMap.size());
             }
 
         }
 
         SearchChange.searchDuplicateGame(goodsMap);
         newPrice(goodsMap);
+        alltableModel.fireTableDataChanged();
+
     }
 
     public static void newPrice(Map<Integer, Goods> goodsMap) {
@@ -68,7 +70,6 @@ public class SearchChange {
             data[i][8] = gSecond.getValue().getType();
             i++;
         }
-//        alltableModel.fireTableDataChanged();
     }
 
     public static void searchDuplicateGame(Map<Integer, Goods> goodsMap) {

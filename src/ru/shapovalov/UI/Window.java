@@ -30,6 +30,7 @@ public class Window extends Thread {
     public static TableWithURL t;
     public static Object[][] tempData;
     private static JFrame frame;
+    public static JLabel numberOfLines;
 
     @Override
     public void run() {
@@ -51,7 +52,7 @@ public class Window extends Thread {
         frame.setIconImage(icon.getImage());
         createTable(frame);
         createButton(frame);
-        JLabel numberOfLines = new JLabel("Записей " + data.length);
+        numberOfLines = new JLabel("Записей " + data.length);
         frame.add(numberOfLines, BorderLayout.SOUTH);
 
         frame.setPreferredSize(new Dimension(1650, 600));
