@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.util.*;
 import java.util.List;
 
-import static ru.shapovalov.UI.AllTableModel.data;
+import static ru.shapovalov.UI.PriceTableModel.dataPrice;
 import static ru.shapovalov.UI.Window.*;
 
 public class SearchChange {
@@ -44,23 +44,24 @@ public class SearchChange {
 
         SearchChange.searchDuplicateGame(goodsMap);
         newPrice(goodsMap);
-        alltableModel.fireTableDataChanged();
+        priceTableModel.fireTableDataChanged();
 
     }
 
     public static void newPrice(Map<Integer, Goods> goodsMap) {
 
-        data = new Object[goodsMap.size()][9];
+        dataPrice = new Object[goodsMap.size()][9];
         int i = 0;
         for (Map.Entry<Integer, Goods> gSecond : goodsMap.entrySet()) {
-            data[i][0] = gSecond.getValue().getId_goods();
-            data[i][1] = gSecond.getValue().getName_goods();
-            data[i][2] = gSecond.getValue().getPriceOld();
-            data[i][3] = gSecond.getValue().getPriceNew();
-            data[i][4] = gSecond.getValue().getCnt_sell();
-            data[i][5] = gSecond.getValue().getCnt_goodresponses();
-            data[i][6] = gSecond.getValue().getCnt_badresponses();
-            data[i][7] = gSecond.getValue().getType();
+            dataPrice[i][0] = gSecond.getValue().getId_goods();
+            dataPrice[i][1] = gSecond.getValue().getName_goods();
+            dataPrice[i][2] = gSecond.getValue().getPriceOld();
+            dataPrice[i][3] = gSecond.getValue().getPriceNew();
+            dataPrice[i][4] = gSecond.getValue().getPriceCustomer();
+            dataPrice[i][5] = gSecond.getValue().getCnt_sell();
+            dataPrice[i][6] = gSecond.getValue().getCnt_goodresponses();
+            dataPrice[i][7] = gSecond.getValue().getCnt_badresponses();
+            dataPrice[i][8] = gSecond.getValue().getType();
             i++;
         }
     }

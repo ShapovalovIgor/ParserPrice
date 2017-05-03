@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 
 import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
-import static ru.shapovalov.UI.AllTableModel.data;
+import static ru.shapovalov.UI.PriceTableModel.dataPrice;
 
 
 public class DB {
@@ -25,6 +25,7 @@ public class DB {
                                         "name_goods text," +
                                         "price_old real," +
                                         "price_new real," +
+                                        "price_customer real," +
                                         "cnt_sell integer," +
                                         "cnt_goodresponses integer," +
                                         "cnt_badresponses integer," +
@@ -48,11 +49,11 @@ public class DB {
 
     public void writeDB() throws SQLException
     {
-        for (int i = 0; i<data.length;i++) {
+        for (int i = 0; i< dataPrice.length; i++) {
             statmt.execute("INSERT INTO goods ('id_goods', 'name_goods', 'price_old', 'price_new'," +
                     "'cnt_sell', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
-                    "VALUES ('" + data[i][0] + "', '" + data[i][1] + "', '" + data[i][2] + "', '" + data[i][3] + "', " +
-                    "'" + data[i][4] + "', '" + data[i][5] + "', '" + data[i][6] + "', '" + data[i][7] + "', " +
+                    "VALUES ('" + dataPrice[i][0] + "', '" + dataPrice[i][1] + "', '" + dataPrice[i][2] + "', '" + dataPrice[i][3] + "', " +
+                    "'" + dataPrice[i][4] + "', '" + dataPrice[i][5] + "', '" + dataPrice[i][6] + "', '" + dataPrice[i][7] + "', '" + dataPrice[i][8] + "' " +
                     "'');");
         }
 
@@ -70,29 +71,31 @@ public class DB {
         resSet = statmt.executeQuery("SELECT * FROM goods");
         int i =0;
 
-        data = new Object[rowCount][rowCount];
+        dataPrice = new Object[rowCount][rowCount];
         while(resSet.next())
         {
             int id_goods = resSet.getInt("id_goods");
             String nameGoods = resSet.getString("name_goods");
             double priceOld = resSet.getDouble("price_old");
             double priceNew = resSet.getDouble("price_new");
+            double priceCustomer = resSet.getDouble("price_customer");
             int cntSell = resSet.getInt("cnt_sell");
             int cntGoodresponses = resSet.getInt("cnt_goodresponses");
             int cntBadresponses = resSet.getInt("cnt_badresponses");
             int type = resSet.getInt("type");
 
 
-            data[i][0] = id_goods;
-            data[i][1] = nameGoods;
-            data[i][2] = priceOld;
-            data[i][3] = priceNew;
-            data[i][4] = cntSell;
-            data[i][5] = cntGoodresponses;
-            data[i][6] = cntBadresponses;
-            data[i][7] = type;
+            dataPrice[i][0] = id_goods;
+            dataPrice[i][1] = nameGoods;
+            dataPrice[i][2] = priceOld;
+            dataPrice[i][3] = priceNew;
+            dataPrice[i][4] = priceCustomer;
+            dataPrice[i][5] = cntSell;
+            dataPrice[i][6] = cntGoodresponses;
+            dataPrice[i][7] = cntBadresponses;
+            dataPrice[i][8] = type;
             goodsMap.clear();
-            goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew,
+            goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew, priceCustomer,
                     cntSell, cntGoodresponses, cntBadresponses, type));
             i++;
         }

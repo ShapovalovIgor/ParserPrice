@@ -6,16 +6,18 @@ public class Goods {
     private String name_goods;
     private double priceOld;
     private double priceNew;
+    private double priceCustomer;
     private int cnt_sell;
     private int cnt_goodresponses;
     private int cnt_badresponses;
     private int type;
 
-    public Goods(int id_goods, String name_goods, double priceOld, double priceNew, int cnt_sell, int cnt_goodresponses, int cnt_badresponses, int type) {
+    public Goods(int id_goods, String name_goods, double priceOld, double priceNew, double priceCustomer, int cnt_sell, int cnt_goodresponses, int cnt_badresponses, int type) {
         this.id_goods = id_goods;
         this.name_goods = name_goods;
         this.priceOld = priceOld;
         this.priceNew = priceNew;
+        this.priceCustomer = priceCustomer;
         this.cnt_sell = cnt_sell;
         this.cnt_goodresponses = cnt_goodresponses;
         this.cnt_badresponses = cnt_badresponses;
@@ -36,6 +38,10 @@ public class Goods {
 
     public void setPriceNew(double priceNew) {
         this.priceNew = priceNew;
+    }
+
+    public void setPriceCustomer(double priceCustomer) {
+        this.priceCustomer = priceCustomer;
     }
 
     public void setCnt_sell(int cnt_sell) {
@@ -67,6 +73,10 @@ public class Goods {
 
     public double getPriceNew() {
         return priceNew;
+    }
+
+    public double getPriceCustomer() {
+        return priceCustomer;
     }
 
     public int getCnt_sell() {

@@ -2,16 +2,15 @@ package ru.shapovalov.UI;
 
 import javax.swing.table.AbstractTableModel;
 
-public class AllTableModel extends AbstractTableModel {
+public class SaleTableModel extends AbstractTableModel {
 
     String[] columnNames;
-    public static Object[][] data;
+    public static Object[][] dataSale;
 
 
-    public AllTableModel() {
+    public SaleTableModel() {
 
-        columnNames = new String[]{"ИД товара", "Название", "Старая цена руб", "Новая цена руб",
-                "Продаж", "+ отзывов", "- отзывов", "Тип"};
+        columnNames = new String[]{"Название", "Цена руб", "Продавец", "Тип"};
     }
 
     public int getColumnCount() {
@@ -19,7 +18,7 @@ public class AllTableModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return data.length;
+        return dataSale.length;
     }
 
     public String getColumnName(int col) {
@@ -27,7 +26,7 @@ public class AllTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        return data[row][col];
+        return dataSale[row][col];
     }
 
     public Class getColumnClass(int c) {
@@ -40,7 +39,7 @@ public class AllTableModel extends AbstractTableModel {
     }
 
     public void setValueAt(Object value, int row, int col) {
-        data[row][col] = value;
+        dataSale[row][col] = value;
         fireTableCellUpdated(row, col);
     }
 }

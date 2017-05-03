@@ -4,7 +4,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class SetColorTable extends DefaultTableCellRenderer {
+import static ru.shapovalov.UI.Window.userName;
+
+public class SetColorSaleTable extends DefaultTableCellRenderer {
     private static final Color evenColor = new Color(240, 240, 255);
 
     @Override
@@ -19,30 +21,25 @@ public class SetColorTable extends DefaultTableCellRenderer {
             setForeground(table.getForeground());
             setBackground((row % 2 == 0) ? evenColor : table.getBackground());
         }
-        if ((table.getValueAt(row, 2)).equals(null) && !(table.getValueAt(row, 3)).equals(null)) {
+
+        if (1 == (int) table.getValueAt(row, 3) && column == 1) {
             setBackground(Color.BLUE);
             setForeground(Color.WHITE);
-        } else if (((double) table.getValueAt(row, 2)) > ((double) table.getValueAt(row, 3)) && (column == 2 || column == 3)) {
-            setBackground(Color.GREEN);
-            setForeground(Color.BLACK);
-        } else if (((double) table.getValueAt(row, 2)) < ((double) table.getValueAt(row, 3)) && (column == 2 || column == 3)) {
-            setBackground(Color.RED);
-            setForeground(Color.WHITE);
-        }
-        if (1 == (int) table.getValueAt(row, 7) && column == 1) {
-            setBackground(Color.BLUE);
-            setForeground(Color.WHITE);
-        } else if (2 == (int) table.getValueAt(row, 7) && column == 1) {
+        } else if (2 == (int) table.getValueAt(row, 3) && column == 1) {
             setBackground(Color.YELLOW);
             setForeground(Color.BLACK);
-        } else if (3 == (int) table.getValueAt(row, 7) && column == 1) {
+        } else if (3 == (int) table.getValueAt(row, 3) && column == 1) {
             setBackground(Color.ORANGE);
             setForeground(Color.BLACK);
-        } else if (4 == (int) table.getValueAt(row, 7) && column == 1) {
+        } else if (4 == (int) table.getValueAt(row, 3) && column == 1) {
             setBackground(Color.GREEN);
             setForeground(Color.BLACK);
         }
 
+        if (null != userName && userName.equals(table.getValueAt(row, 2)) && column == 2) {
+            setBackground(Color.RED);
+            setForeground(Color.WHITE);
+        }
         setHorizontalAlignment((value instanceof Number) ? RIGHT : LEFT);
         return this;
     }
