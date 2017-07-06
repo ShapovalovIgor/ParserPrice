@@ -25,7 +25,7 @@ public class DB {
                                         "name_goods text," +
                                         "price_old real," +
                                         "price_new real," +
-                                        "price_customer real," +
+                                        "name_customer text," +
                                         "cnt_sell integer," +
                                         "cnt_goodresponses integer," +
                                         "cnt_badresponses integer," +
@@ -51,7 +51,7 @@ public class DB {
     {
         for (int i = 0; i< dataPrice.length; i++) {
             statmt.execute("INSERT INTO goods ('id_goods', 'name_goods', 'price_old', 'price_new'," +
-                    "'cnt_sell', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
+                    "'name_customer', 'cnt_goodresponses', 'cnt_badresponses', 'type') " +
                     "VALUES ('" + dataPrice[i][0] + "', '" + dataPrice[i][1] + "', '" + dataPrice[i][2] + "', '" + dataPrice[i][3] + "', " +
                     "'" + dataPrice[i][4] + "', '" + dataPrice[i][5] + "', '" + dataPrice[i][6] + "', '" + dataPrice[i][7] + "', '" + dataPrice[i][8] + "' " +
                     "'');");
@@ -78,7 +78,7 @@ public class DB {
             String nameGoods = resSet.getString("name_goods");
             double priceOld = resSet.getDouble("price_old");
             double priceNew = resSet.getDouble("price_new");
-            double priceCustomer = resSet.getDouble("price_customer");
+            String nameCustomer = resSet.getString("name_customer");
             int cntSell = resSet.getInt("cnt_sell");
             int cntGoodresponses = resSet.getInt("cnt_goodresponses");
             int cntBadresponses = resSet.getInt("cnt_badresponses");
@@ -89,13 +89,13 @@ public class DB {
             dataPrice[i][1] = nameGoods;
             dataPrice[i][2] = priceOld;
             dataPrice[i][3] = priceNew;
-            dataPrice[i][4] = priceCustomer;
+            dataPrice[i][4] = nameCustomer;
             dataPrice[i][5] = cntSell;
             dataPrice[i][6] = cntGoodresponses;
             dataPrice[i][7] = cntBadresponses;
             dataPrice[i][8] = type;
             goodsMap.clear();
-            goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew, priceCustomer,
+            goodsMap.put(id_goods, new Goods(id_goods, nameGoods, priceOld, priceNew, nameCustomer,
                     cntSell, cntGoodresponses, cntBadresponses, type));
             i++;
         }

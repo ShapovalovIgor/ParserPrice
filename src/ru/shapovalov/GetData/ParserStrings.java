@@ -81,16 +81,16 @@ public class ParserStrings {
                         int cntBadresponsesInt = Integer.parseInt(getCharacterDataFromElement(line));
 
                         if (startCollection) {
-                            goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub, 0,
+                            goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub, nameCustomer,
                                     cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             oldIdList.add(idGoodsInt);
                         } else {
                             Goods goodsOld = goodsMap.get(idGoodsInt);
                             if (goodsOld != null) {
-                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, goodsOld.getPriceOld(), priceDoub, 0,
+                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, goodsOld.getPriceOld(), priceDoub, nameCustomer,
                                         cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             } else {
-                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub, 0,
+                                goodsMap.put(idGoodsInt, new Goods(idGoodsInt, nameGoodsStr, priceDoub, priceDoub, nameCustomer,
                                         cntSellInt, cntGoodresponsesInt, cntBadresponsesInt, 0));
                             }
 

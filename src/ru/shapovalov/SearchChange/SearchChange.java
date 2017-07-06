@@ -57,7 +57,7 @@ public class SearchChange {
             dataPrice[i][1] = gSecond.getValue().getName_goods();
             dataPrice[i][2] = gSecond.getValue().getPriceOld();
             dataPrice[i][3] = gSecond.getValue().getPriceNew();
-            dataPrice[i][4] = gSecond.getValue().getPriceCustomer();
+            dataPrice[i][4] = gSecond.getValue().getNameCustomer();
             dataPrice[i][5] = gSecond.getValue().getCnt_sell();
             dataPrice[i][6] = gSecond.getValue().getCnt_goodresponses();
             dataPrice[i][7] = gSecond.getValue().getCnt_badresponses();

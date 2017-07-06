@@ -1,7 +1,6 @@
 package ru.shapovalov.UI;
 
 import ru.shapovalov.DB.DB;
-import ru.shapovalov.GetData.Goods;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -17,13 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static ru.shapovalov.Run.parserStrings;
-import static ru.shapovalov.SearchChange.SearchChange.goodsMap;
 import static ru.shapovalov.SearchChange.SearchChange.searchPrice;
 import static ru.shapovalov.UI.PriceTableModel.dataPrice;
-import static ru.shapovalov.UI.SaleTableModel.dataSale;
 
 public class Window extends Thread {
     public static final String APPLICATION_NAME = "Parser price";
@@ -33,13 +29,10 @@ public class Window extends Thread {
     public static TrayIcon trayIcon;
     public static ImageIcon icon;
     public static PriceTableModel priceTableModel;
-    public static SaleTableModel saleTableModel;
     public static JTextField filterText;
     public static JTextField filterSel;
     public static TableWithURL tableWithURL;
-    public static TableWithURL tableSele;
     public static TableRowSorter<PriceTableModel> sorter;
-    public static String userName;
     private static JFrame frame;
     public static JLabel numberOfLines;
 
@@ -66,7 +59,7 @@ public class Window extends Thread {
         numberOfLines = new JLabel("Записей " + dataPrice.length);
         frame.add(numberOfLines, BorderLayout.SOUTH);
 
-        frame.setPreferredSize(new Dimension(1650, 600));
+        frame.setPreferredSize(new Dimension(1100, 600));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setState(JFrame.ICONIFIED);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -126,42 +119,6 @@ public class Window extends Thread {
     }
 
     public static void createTable(JFrame frame) {
-        dataSale = new Object[2][5];
-        dataSale[0][0] = 1;
-        dataSale[0][1] = 1;
-        dataSale[0][2] = 1;
-        dataSale[0][3] = 1;
-        dataSale[0][4] = 1;
-        dataSale[1][0] = 2;
-        dataSale[1][1] = 2;
-        dataSale[1][2] = 2;
-        dataSale[1][3] = 2;
-        dataSale[1][4] = 2;
-
-        SetColorSaleTable setColorSaleTable = new SetColorSaleTable();
-        saleTableModel = new SaleTableModel();
-        tableSele = new TableWithURL(saleTableModel);
-        for (TableColumn column : Collections.list(tableSele.getColumnModel().getColumns())) {
-            column.setCellRenderer(setColorSaleTable);
-        }
-        tableSele.getColumnModel().getColumn(0).setMinWidth(500);
-        tableSele.getColumnModel().getColumn(0).setMaxWidth(450);
-        tableSele.getColumnModel().getColumn(1).setMinWidth(65);
-        tableSele.getColumnModel().getColumn(1).setMaxWidth(65);
-        tableSele.getColumnModel().getColumn(2).setMinWidth(65);
-        tableSele.getColumnModel().getColumn(2).setMaxWidth(65);
-        tableSele.getColumnModel().getColumn(3).setMinWidth(30);
-        tableSele.getColumnModel().getColumn(3).setMaxWidth(30);
-        tableWithURL.setSize(660, 500);
-        System.out.println("Sale=" + tableSele.getPreferredSize());
-        Container c = frame.getContentPane();
-        c.add(tableSele.getTableHeader());
-//        sorter = new TableRowSorter<>(priceTableModel);
-//
-//        List<RowSorter.SortKey> sortKeysSele = new ArrayList<>();
-//        sortKeysSele.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-//        sorter.setSortKeys(sortKeysSele);
-//        tableSele.setRowSorter(sorter);
 
         SetColorPriceTable setColorPriceTable = new SetColorPriceTable();
 
@@ -188,13 +145,11 @@ public class Window extends Thread {
         tableWithURL.getColumnModel().getColumn(7).setMaxWidth(65);
         tableWithURL.getColumnModel().getColumn(8).setMinWidth(30);
         tableWithURL.getColumnModel().getColumn(8).setMaxWidth(30);
-       tableWithURL.setSize(1070, 500);
-        System.out.println("Url=" +tableWithURL.getPreferredSize());
-
-        c.add(tableWithURL.getTableHeader());
-        c.add(new JScrollPane(tableWithURL), BorderLayout.CENTER);
-        c.add(new JScrollPane(tableSele), BorderLayout.EAST);
-
+        System.out.println("Url=" + tableWithURL.getPreferredSize());
+        tableWithURL.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+//        frame.add(tableWithURL.getTableHeader());
+        frame.getContentPane().add(tableWithURL);
+        frame.add(new JScrollPane(tableWithURL));
         frame.validate();
         sorter = new TableRowSorter<>(priceTableModel);
 
@@ -208,7 +163,7 @@ public class Window extends Thread {
 
 
         JPanel jPanel = new JPanel();
-        JLabel l1 = new JLabel("Поиск:", SwingConstants.TRAILING);
+        JLabel l1 = new JLabel("Название:", SwingConstants.TRAILING);
         JLabel nameSel = new JLabel("Имя продовца:", SwingConstants.TRAILING);
 
         l1.setHorizontalAlignment(JLabel.LEFT);
@@ -234,15 +189,15 @@ public class Window extends Thread {
         filterSel.getDocument().addDocumentListener(
                 new DocumentListener() {
                     public void changedUpdate(DocumentEvent e) {
-                        newFilterSel();
+                        newFilter();
                     }
 
                     public void insertUpdate(DocumentEvent e) {
-                        newFilterSel();
+                        newFilter();
                     }
 
                     public void removeUpdate(DocumentEvent e) {
-                        newFilterSel();
+                        newFilter();
                     }
                 });
         l1.setLabelFor(filterText);
@@ -328,18 +283,12 @@ public class Window extends Thread {
         RowFilter<PriceTableModel, Object> rf = null;
         //If current expression doesn'tableWithURL parse, don'tableWithURL update.
         try {
-            rf = RowFilter.regexFilter(filterText.getText(), 1);
+            rf = RowFilter.regexFilter(filterText.getText(), 1).regexFilter(filterSel.getText(), 4);
+
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
         sorter.setRowFilter(rf);
     }
 
-    private static void newFilterSel() {
-        userName = filterSel.getText();
-        for (Map.Entry<Integer, Goods> gSecondExternal : goodsMap.entrySet()) {
-            Goods secondValueExternal = gSecondExternal.getValue();
-           // secondValueExternal.g
-        }
-    }
 }
