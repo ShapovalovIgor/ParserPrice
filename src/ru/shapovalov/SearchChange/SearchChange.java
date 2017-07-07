@@ -78,8 +78,8 @@ public class SearchChange {
                     Goods secondValue = gSecond.getValue();
                     String platiRuGameName = secondValue.getName_goods();
 
-                    if (platiRuGameName.contains(platiRuGameNameExternal) ||
-                            platiRuGameNameExternal.contains(platiRuGameName)) {
+                    if (platiRuGameName.toLowerCase().contains(platiRuGameNameExternal.toLowerCase()) ||
+                            platiRuGameNameExternal.toLowerCase().contains(platiRuGameName.toLowerCase())) {
                         fillTypeList.add(secondValue);
                     }
                 }
