@@ -23,14 +23,16 @@ import static ru.shapovalov.UI.PriceTableModel.dataPrice;
 
 public class Window extends Thread {
     public static final String APPLICATION_NAME = "Parser price";
+    public static final String TREE_LABEL_MESSAGE_DOWN ="В вашем городе обноружен ублюдок! уничтожте его мистер дольч.";
+    public static final String TREE_LABEL_MESSAGE_UP ="На одного ублюдка стало меньше.";
     public static final String ICON_STR = "/image/ico.png";
     public static final String ICON_REFRESH = "/image/refresh.png";
     public static final String ICON_SAVE = "/image/save.png";
     public static TrayIcon trayIcon;
     public static ImageIcon icon;
     public static PriceTableModel priceTableModel;
-    public static JTextField filterText;
-    public static JTextField filterSel;
+    public static JTextField goodsFilterField;
+    public static JTextField selerFilterField;
     public static TableWithURL tableWithURL;
     public static TableRowSorter<PriceTableModel> sorter;
     private static JFrame frame;
@@ -163,16 +165,15 @@ public class Window extends Thread {
 
 
         JPanel jPanel = new JPanel();
-        JLabel l1 = new JLabel("Название:", SwingConstants.TRAILING);
-        JLabel nameSel = new JLabel("Имя продовца:", SwingConstants.TRAILING);
+        JLabel nameGoodsFilterLable = new JLabel("Название:", SwingConstants.TRAILING);
+        JLabel nameSelerFilterLable = new JLabel("Имя продовца:", SwingConstants.TRAILING);
 
-        l1.setHorizontalAlignment(JLabel.LEFT);
-        nameSel.setHorizontalAlignment(JLabel.LEFT);
-        jPanel.add(l1);
-        filterText = new JTextField(20);
-        filterSel = new JTextField(20);
+        nameGoodsFilterLable.setHorizontalAlignment(JLabel.LEFT);
+        nameSelerFilterLable.setHorizontalAlignment(JLabel.LEFT);
+        goodsFilterField = new JTextField(20);
+        selerFilterField = new JTextField(20);
 
-        filterText.getDocument().addDocumentListener(
+        goodsFilterField.getDocument().addDocumentListener(
                 new DocumentListener() {
                     public void changedUpdate(DocumentEvent e) {
                         newFilter();
@@ -186,7 +187,7 @@ public class Window extends Thread {
                         newFilter();
                     }
                 });
-        filterSel.getDocument().addDocumentListener(
+        selerFilterField.getDocument().addDocumentListener(
                 new DocumentListener() {
                     public void changedUpdate(DocumentEvent e) {
                         newFilter();
@@ -200,11 +201,12 @@ public class Window extends Thread {
                         newFilter();
                     }
                 });
-        l1.setLabelFor(filterText);
-        nameSel.setLabelFor(filterSel);
-        jPanel.add(filterText);
-        jPanel.add(nameSel);
-        jPanel.add(filterSel);
+        nameGoodsFilterLable.setLabelFor(goodsFilterField);
+        nameSelerFilterLable.setLabelFor(selerFilterField);
+        jPanel.add(nameGoodsFilterLable);
+        jPanel.add(goodsFilterField);
+        jPanel.add(nameSelerFilterLable);
+        jPanel.add(selerFilterField);
 
         JButton save = new JButton("Сохранить в базу таблицу", new ImageIcon(Window.class.getResource(ICON_SAVE)));
         save.setHorizontalAlignment(AbstractButton.CENTER);
@@ -281,10 +283,12 @@ public class Window extends Thread {
 
     private static void newFilter() {
         RowFilter<PriceTableModel, Object> rf = null;
-        //If current expression doesn'tableWithURL parse, don'tableWithURL update.
+        List<RowFilter<Object,Object>> rfs =
+                new ArrayList<>();
         try {
-            rf = RowFilter.regexFilter(filterText.getText(), 1).regexFilter(filterSel.getText(), 4);
-
+            rfs.add(RowFilter.regexFilter(goodsFilterField.getText(), 1));
+            rfs.add(RowFilter.regexFilter(selerFilterField.getText(), 4));
+            rf = RowFilter.andFilter(rfs);
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
